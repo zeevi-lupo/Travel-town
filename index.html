@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Town Reward Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="top-bar">
+        <div class="server-status">
+            <div><span class="status-dot"></span><span class="online-text">SERVER ONLINE</span></div>
+            <span class="user-count" id="userCount">Active Travelers: 3,842</span>
+        </div>
+        <div class="game-logo-small">
+            <i class="fas fa-umbrella-beach" style="color: #fff; font-size: 1.5rem;"></i>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div id="step1" class="step-content active">
+            <div class="logo-container">
+                <img src="logo-travel.png" alt="Travel Town" class="main-logo">
+            </div>
+            <h2 class="title-text">ISLAND SEARCH</h2>
+            <p class="subtitle">Enter your Game ID to sync with Travel Town servers.</p>
+            <div class="input-group">
+                <i class="fas fa-map-marked-alt input-icon"></i>
+                <input type="text" id="usernameInput" placeholder="Traveler ID / Username">
+            </div>
+            <div class="device-selector">
+                <div class="device-btn selected" onclick="selectDevice(this)">
+                    <i class="fab fa-android"></i> Android
+                </div>
+                <div class="device-btn" onclick="selectDevice(this)">
+                    <i class="fab fa-apple"></i> iOS
+                </div>
+            </div>
+            <button class="cta-btn pulse-anim" onclick="processStep1()">FIND PLAYER</button>
+            
+            <div class="loading-container" id="loading1" style="display:none; margin-top:20px;">
+                <div class="search-anim" id="searchIcon"><i class="fas fa-compass fa-spin"></i></div>
+                <div class="success-icon" id="successIcon" style="display: none;"><i class="fas fa-check-circle"></i></div>
+                <div class="loading-text" id="loadingText1">Mapping the island...</div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar1"></div></div>
+            </div>
+            
+            <div class="comments-section">
+                <div class="comments-header"><i class="fas fa-globe"></i> Global Feed</div>
+                <div class="comment-list" id="dynamicComments"></div>
+            </div>
+        </div>
+
+        <div id="step2" class="step-content" style="display: none;">
+            <div class="user-badge"><i class="fas fa-user"></i> Connected: <span id="displayUsername" style="color: #ffeb3b;">User</span></div>
+            <h2 class="title-text">SELECT PACK</h2>
+            <div class="reward-tabs">
+                <div class="tab active" onclick="switchTab('energy')">ENERGY</div>
+                <div class="tab" onclick="switchTab('diamonds')">DIAMONDS</div>
+            </div>
+
+            <div id="tab-energy" class="reward-grid">
+                <div class="reward-card">
+                    <div class="reward-amount">500</div>
+                    <div class="reward-name">ENERGY</div>
+                    <i class="fas fa-bolt reward-icon" style="color: #ffeb3b;"></i>
+                    <button class="claim-btn" onclick="startClaimProcess('500 Energy')">CLAIM</button>
+                </div>
+                <div class="reward-card">
+                    <div class="reward-amount">2,000</div>
+                    <div class="reward-name">ENERGY</div>
+                    <i class="fas fa-bolt reward-icon" style="color: #ffeb3b;"></i>
+                    <button class="claim-btn" onclick="startClaimProcess('2,000 Energy')">CLAIM</button>
+                </div>
+                <div class="reward-card popular">
+                    <div class="badge-best">BEST DEAL</div>
+                    <div class="reward-amount" style="color: #ffeb3b;">5,000</div>
+                    <div class="reward-name">ENERGY</div>
+                    <i class="fas fa-bolt reward-icon" style="color: #ffeb3b;"></i>
+                    <button class="claim-btn" onclick="startClaimProcess('5,000 Energy')">CLAIM</button>
+                </div>
+                <div class="reward-card">
+                    <div class="reward-amount">10,000</div>
+                    <div class="reward-name">ENERGY</div>
+                    <i class="fas fa-bolt reward-icon" style="color: #ffeb3b;"></i>
+                    <button class="claim-btn" onclick="startClaimProcess('10,000 Energy')">CLAIM</button>
+                </div>
+            </div>
+
+            <div id="tab-diamonds" class="reward-grid" style="display: none;">
+                <div class="reward-card">
+                    <div class="reward-amount">1,000</div>
+                    <div class="reward-name">GEMS</div>
+                    <i class="fas fa-gem reward-icon" style="color: #00e5ff;"></i>
+                    <button class="claim-btn" onclick="startClaimProcess('1,000 Diamonds')">CLAIM</button>
+                </div>
+                <div class="reward-card popular">
+                    <div class="badge-best">JACKPOT</div>
+                    <div class="reward-amount" style="color: #00e5ff;">5,000</div>
+                    <div class="reward-name">GEMS</div>
+                    <i class="fas fa-gem reward-icon" style="color: #00e5ff;"></i>
+                    <button class="claim-btn" onclick="startClaimProcess('5,000 Diamonds')">CLAIM</button>
+                </div>
+                <div class="reward-card">
+                    <div class="reward-amount">10,000</div>
+                    <div class="reward-name">GEMS</div>
+                    <i class="fas fa-gem reward-icon" style="color: #00e5ff;"></i>
+                    <button class="claim-btn" onclick="startClaimProcess('10,000 Diamonds')">CLAIM</button>
+                </div>
+                <div class="reward-card">
+                    <div class="reward-amount">20,000</div>
+                    <div class="reward-name">GEMS</div>
+                    <i class="fas fa-gem reward-icon" style="color: #00e5ff;"></i>
+                    <button class="claim-btn" onclick="startClaimProcess('20,000 Diamonds')">CLAIM</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="step-loading" class="step-content" style="display: none;">
+            <i id="loadingSpinner" class="fas fa-sync fa-spin" style="font-size: 4rem; color: #ffeb3b; margin-bottom: 15px;"></i>
+            <i id="successIconGen" class="fas fa-check-circle" style="font-size: 4rem; color: #28a745; margin-bottom: 15px; display: none;"></i>
+            <h2 id="loadingTitle" class="title-text" style="font-size: 1.5rem;">MERGING...</h2>
+            <div class="console-text" id="consoleText">Accessing data...</div>
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBarGen"></div></div>
+        </div>
+
+        <div id="step3" class="step-content" style="display: none;">
+            <div class="alert-icon"><i class="fas fa-shield-alt"></i></div>
+            <h2 class="title-text" style="color: #673ab7;">ANTI-BOT</h2>
+            <p style="font-weight: 800; color: #444; margin-bottom: 20px;">
+                <span id="displayUsername2" style="color: #673ab7;">User</span>, almost done! Verify your session to receive <span id="selectedItemName" style="color: #ff9800;">Reward</span>.
+            </p>
+            <a id="lockerLink" href="#" class="cta-btn pulse-anim" style="background: #32CD32; border-bottom: 5px solid #228B22;" onclick="lacakKlikCPA(event, this.href)">VERIFY NOW</a>
+        </div>
+
+        <footer class="pro-footer">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">DMCA</a> | 
+                <a href="#">Contact Us</a>
+            </div>
+            <p class="footer-copyright">
+                © 2026 Travel Town.
+            </p>
+        </footer>
+
+    </div>
+
+    <div id="live-notification" class="live-noti-container">
+        <div class="noti-img"><i class="fas fa-gift"></i></div>
+        <div class="noti-content">
+            <div class="noti-text"><span id="noti-name" class="noti-name">Player</span> just claimed <span id="noti-item" class="noti-item">5,000 Energy</span></div>
+        </div>
+    </div>
+
+    <script src="script.js?v=5"></script>
+</body>
+</html>
