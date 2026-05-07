@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const memberID = urlParams.get('ml_sub1') || urlParams.get('abm_sub1');
 
 // LINK LOCKER ABM
-let abmLink = "your-deployment-url.com/b83855f";
+let abmLink = "https://your-deployment-url.com/b83855f";
 
 if (memberID) {
     const separator = abmLink.includes("?") ? "&" : "?";
