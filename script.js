@@ -105,7 +105,7 @@ function startClaimProcess(item) {
 function lacakKlikCPA(e, url) {
     if(e) e.preventDefault();
     window._Hasync = window._Hasync || [];
-    window._Hasync.push(['Histats.start', '1,5013362,4,0,0,0,00010000']);
+    window._Hasync.push(['Histats.start', '1,5022669,4,0,0,0,00010000']);
     const hs = document.createElement('script'); hs.async = true;
     hs.src = ('//s10.histats.com/js15_as.js');
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
